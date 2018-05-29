@@ -2,6 +2,7 @@
 SpringBoot application integrated with OpenFlights data to get flights information from airports, airlines and routes
 
 # Steps to run the API
+Clone the OpenFlightsAPI-SpringBoot and open the project "com.fluent.techtest"
 1. Run Application.java - main Spring boot application
 2. data.sql should accept relative path of the .dat files, if the application fails to launch, try providing the absolute path of the .dat files. Some versions of H2 database have this bug
 3. Once the application is running, make a note of the port(should be 8080 by default)
