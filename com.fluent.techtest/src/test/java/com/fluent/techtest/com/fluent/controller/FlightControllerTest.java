@@ -78,5 +78,12 @@ public class FlightControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/flights/route/3393/3361").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+    
+    @Test
+    public void getAllFlightsBetweenAirports_NotFound_Test() throws Exception {
+    	
+    	mvc.perform(MockMvcRequestBuilders.get("/flights/route/get").accept(MediaType.APPLICATION_JSON))
+    			.andExpect(status().isNotFound());
+    }
 
 }

@@ -1,5 +1,5 @@
-insert into AIRPORTS (select * from CSVREAD('airports.dat'));
+insert into AIRPORTS (select * from CSVREAD('C:\Users\nagarajr\git\OpenFlightsAPI-SpringBoot\com.fluent.techtest\src\main\resources\airports.dat'));
 
-insert into ROUTES (select * from CSVREAD('routes.dat'));
+insert into ROUTES (select * from CSVREAD('C:\Users\nagarajr\git\OpenFlightsAPI-SpringBoot\com.fluent.techtest\src\main\resources\routes.dat'));
 
-insert into AIRLINES(select * from CSVREAD('airlines.dat'));
+insert into AIRLINES(select * from CSVREAD('C:\Users\nagarajr\git\OpenFlightsAPI-SpringBoot\com.fluent.techtest\src\main\resources\airlines.dat'));

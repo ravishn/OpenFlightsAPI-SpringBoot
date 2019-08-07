@@ -32,14 +32,15 @@ public class FlightJdbcRepository {
      */
     class FlightsInRowMapper implements RowMapper<Flight> {
 
-        @Override
         public Flight mapRow(ResultSet rs, int rowNum) throws SQLException {
 
             flight = new Flight();
+            flight.setSourceAirportId(rs.getString("SOURCEAIRPORTID"));
             flight.setDestinataionAirportId(rs.getString("DESTAIRPORTID"));
             flight.setAirlineName(rs.getString("AIRLINENAME"));
             flight.setAirlineId(rs.getString("AIRLINEID"));
             flight.setAirportName(rs.getString("AIRPORTNAME"));
+            flight.setActive(rs.getString("ACTIVE"));
 
             return flight;
         }
@@ -50,14 +51,15 @@ public class FlightJdbcRepository {
      */
     class FlightsOutRowMapper implements RowMapper<Flight> {
 
-        @Override
         public Flight mapRow(ResultSet rs, int rowNum) throws SQLException {
 
             flight = new Flight();
-            flight.setSourceAirportId(rs.getString("SourceAirportID"));
+            flight.setSourceAirportId(rs.getString("SOURCEAIRPORTID"));
+            flight.setDestinataionAirportId(rs.getString("DESTAIRPORTID"));
             flight.setAirlineName(rs.getString("AIRLINENAME"));
             flight.setAirlineId(rs.getString("AIRLINEID"));
             flight.setAirportName(rs.getString("AIRPORTNAME"));
+            flight.setActive(rs.getString("ACTIVE"));
 
             return flight;
         }
@@ -68,15 +70,15 @@ public class FlightJdbcRepository {
      */
     class FLightsBetweenAirportsRowMapper implements RowMapper<Flight> {
 
-        @Override
         public Flight mapRow(ResultSet rs, int rowNum) throws SQLException {
 
             flight = new Flight();
             flight.setSourceAirportId(rs.getString("SOURCEAIRPORTID"));
             flight.setDestinataionAirportId(rs.getString("DESTAIRPORTID"));
             flight.setAirlineName(rs.getString("AIRLINENAME"));
-            flight.setStops(rs.getString("STOPS"));
+            flight.setAirlineId(rs.getString("AIRLINEID"));
             flight.setActive(rs.getString("ACTIVE"));
+            flight.setStops(rs.getString("STOPS"));
 
             return flight;
         }
@@ -92,13 +94,15 @@ public class FlightJdbcRepository {
         getAllFlightsInQuery = "select " +
                 "AIRPORTS.NAME as AIRPORTNAME, " +
                 "AIRLINES.NAME as AIRLINENAME, " +
+                "SOURCEAIRPORTID, " + 
                 "DESTAIRPORTID, " +
                 "AIRLINES.AIRLINEID as AIRLINEID, " +
                 "ACTIVE " +
                 "from AIRPORTS, ROUTES, AIRLINES " +
                 "where AIRPORTID = DESTAIRPORTID " +
-                "and AIRPORTS.AIRPORTID = '" +airportId+ "' " +
-                "and AIRLINES.ACTIVE = 'Y';";
+                "and DESTAIRPORTID = '" +airportId+ "' " +
+                "and AIRLINES.ACTIVE = 'Y' " +
+                "LIMIT 100;";
 
         return jdbcTemplate.query(getAllFlightsInQuery, new FlightsInRowMapper());
     }
@@ -111,15 +115,17 @@ public class FlightJdbcRepository {
     public List<Flight> findFlightsOutBySurceAirportId(String airportId) {
 
         getALlFlightsOutQuery = "select " +
-                "AIRPORTS.NAME as AIRPORTNAME, " +
+        		"AIRPORTS.NAME as AIRPORTNAME, " +
                 "AIRLINES.NAME as AIRLINENAME, " +
-                "SOURCEAIRPORTID, " +
+                "SOURCEAIRPORTID, " + 
+                "DESTAIRPORTID, " +
                 "AIRLINES.AIRLINEID as AIRLINEID, " +
                 "ACTIVE " +
                 "from AIRPORTS, ROUTES, AIRLINES " +
                 "where AIRPORTID = SOURCEAIRPORTID " +
-                "and AIRPORTS.AIRPORTID = '" +airportId+ "' " +
-                "and AIRLINES.ACTIVE = 'Y';";
+                "and SOURCEAIRPORTID = '" +airportId+ "' " +
+                "and AIRLINES.ACTIVE = 'Y' " +
+                "LIMIT 100;";
 
         return jdbcTemplate.query(getALlFlightsOutQuery, new FlightsOutRowMapper());
     }
@@ -133,18 +139,20 @@ public class FlightJdbcRepository {
     public List<Flight> findFlightsBetweenAirports(String sourceAirportId, String destinationAirportId) {
 
         getAllFlightsBetweenAirportsQuery = "SELECT " +
-                "SOURCEAIRPORTID," +
+        		"SOURCEAIRPORTID, " +
                 "DESTAIRPORTID, " +
                 "SOURCEAIRPORT, " +
                 "DESTAIRPORT, " +
+                "AIRLINES.AIRLINEID as AIRLINEID, " +
                 "AIRLINES.NAME AS AIRLINENAME, " +
-                "ACTIVE, " +
-                "STOPS " +
+                "STOPS, " +
+                "ACTIVE " +
                 "FROM ROUTES, AIRLINES " +
                 "WHERE SOURCEAIRPORTID = '" +sourceAirportId+ "' " +
                 "AND DESTAIRPORTID = '" +destinationAirportId+ "' " +
                 "AND ACTIVE = 'Y' " +
-                "ORDER BY STOPS ASC;";
+                "ORDER BY STOPS ASC " +
+                "LIMIT 100;";
 
         return jdbcTemplate.query(getAllFlightsBetweenAirportsQuery, new FLightsBetweenAirportsRowMapper());
     }
