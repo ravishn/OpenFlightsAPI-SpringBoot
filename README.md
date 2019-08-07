@@ -1,7 +1,7 @@
 # OpenFlights API Specification
 https://openflights.org/data.html
 
-#Requirement
+# Requirement
 1. Use the Airline, Airport and Routes data from OpenFlights spec
 2. Download and read the .dat files
 3. Define a schema and store the data into an in-memory database
