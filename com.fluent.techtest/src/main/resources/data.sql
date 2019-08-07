@@ -1,5 +1,6 @@
-insert into AIRPORTS (select * from CSVREAD('C:\Users\nagarajr\git\OpenFlightsAPI-SpringBoot\com.fluent.techtest\src\main\resources\airports.dat'));
+--Use absolute path if relative path doesn't work. This is a known bug in few versions of H2 database
+insert into AIRPORTS (select * from CSVREAD('resources/airports.dat'));
 
-insert into ROUTES (select * from CSVREAD('C:\Users\nagarajr\git\OpenFlightsAPI-SpringBoot\com.fluent.techtest\src\main\resources\routes.dat'));
+insert into ROUTES (select * from CSVREAD('resources/routes.dat'));
 
-insert into AIRLINES(select * from CSVREAD('C:\Users\nagarajr\git\OpenFlightsAPI-SpringBoot\com.fluent.techtest\src\main\resources\airlines.dat'));
+insert into AIRLINES(select * from CSVREAD('resources/airlines.dat'));
