@@ -21,7 +21,7 @@ Clone the OpenFlightsAPI-SpringBoot and open the project "com.fluent.techtest"
 3. Once the application is running, make a note of the port(should be 8080 by default)
 4. Run the endpoint /flights/in/{airportId} for flights flying in to the airport
 Ex. http://localhost:8080/flights/in/2290 should return the JSON response
-``` [
+[
     {
         "airportName": "Memanbetsu Airport",
         "airlineId": "1",
@@ -113,4 +113,4 @@ Ex. http://localhost:8080/flights/route/3393/3361 should return the JSON respons
         "active": "Y",
         "stops": "0"
     }
-] ```
+]
