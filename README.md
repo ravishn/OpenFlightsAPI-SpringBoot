@@ -1,3 +1,16 @@
+# OpenFlights API Specification
+https://openflights.org/data.html
+
+#Requirement
+1. Use the Airline, Airport and Routes data from OpenFlights spec
+2. Download and read the .dat files
+3. Define a schema and store the data into an in-memory database
+4. Provide API' for
+    a. Flights flying into a specified airport
+    b. Flights flyout out of a specified airport
+    c. Flights between 2 specified airports
+
+
 # OpenFlightsAPI-SpringBoot
 SpringBoot application integrated with OpenFlights data to get flights information from airports, airlines and routes
 
